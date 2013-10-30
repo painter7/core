@@ -180,6 +180,26 @@ $(document).ready(function() {
 		$('#controls').delegate('.crumb:not(.home) a', 'click', onClickBreadcrumb);
 	});
 
+	$('#trash').click(function() {
+		OC.dialogs.confirm(t('files_trashbin', 'ALL files will be DELETED PERMANENTLY. Are you sure ?'), t('files_trashbin', 'PERMANENT DELETION'), function(answer){
+			if (!answer){
+				return;
+			}
+			FileList.showMask();
+			$.post(OC.filePath('files_trashbin', 'ajax', 'delete.php'),
+					{deleteall: true},
+					function(result) {
+						FileList.hideMask();
+						if (result.status !== 'success') {
+							OC.dialogs.alert(result.data.message, t('core', 'Error'));
+						}
+						FileList.changeDirectory('/', true, true);
+					}
+			);
+		});
+		return false;
+	});
+
 	FileActions.actions.dir = {
 		// only keep 'Open' action for navigation
 		'Open': FileActions.actions.dir.Open

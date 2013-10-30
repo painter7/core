@@ -22,3 +22,9 @@ FileList.reload = function(){
 FileList.linkTo = function(dir){
 	return OC.linkTo('files_trashbin', 'index.php')+"?dir="+ encodeURIComponent(dir).replace(/%2F/g, '/');
 }
+
+FileList.oldUpdateEmptyContent = FileList.updateEmptyContent;
+FileList.updateEmptyContent = function(){
+	FileList.oldUpdateEmptyContent.apply(this, arguments);
+	$('#trash').prop('disabled', !$('#fileList tr:first').exists());
+}

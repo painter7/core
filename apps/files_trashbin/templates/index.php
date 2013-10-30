@@ -1,6 +1,7 @@
 <div id="controls">
 	<?php print_unescaped($_['breadcrumb']); ?>
 		<div id="file_action_panel"></div>
+		<input id="trash" type="button" value="<?php p($l->t('Delete ALL files permanently'));?>" class="button" <?php (isset($_['files']) && count($_['files']) === 0 && $_['dirlisting'] === false && !$_['ajaxLoad']) ? p('disabled') : '' ?>></input>
 </div>
 <div id='notification'></div>
 
