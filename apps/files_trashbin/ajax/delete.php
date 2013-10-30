@@ -38,13 +38,15 @@ foreach ($list as $file) {
 	}
 
 	OCA\Files_Trashbin\Trashbin::delete($filename, $timestamp);
-	if (!OCA\Files_Trashbin\Trashbin::file_exists($filename, $timestamp)) {
-		$success[$i]['filename'] = $filename;
-		$success[$i]['timestamp'] = $timestamp;
-		$i++;
-	} else {
+	if (OCA\Files_Trashbin\Trashbin::file_exists($filename, $timestamp)) {
 		$error[] = $filename;
 		OC_Log::write('trashbin','can\'t delete ' . $filename . ' permanently.', OC_Log::ERROR);
+	}
+	// only list deleted files if not deleting everything
+	else if (!$deleteAll) {
+		$success[$i]['filename'] = $file;
+		$success[$i]['timestamp'] = $timestamp;
+		$i++;
 	}
 }
 

@@ -19,6 +19,7 @@ $(document).ready(function() {
 						}
 						enableActions();
 						FileList.updateFileSummary();
+						FileList.updateEmptyContent();
 					}
 			);
 
@@ -45,6 +46,7 @@ $(document).ready(function() {
 					}
 					enableActions();
 					FileList.updateFileSummary();
+					FileList.updateEmptyContent();
 				}
 		);
 
